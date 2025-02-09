@@ -5,4 +5,7 @@ k, n, w = map(int, input().split())
 # Sum of arithmetic series
 total = (w * (k + w * k)) // 2
 
-print(total - n)
+if (n > total):
+    print(0)
+else:
+    print(total - n)
