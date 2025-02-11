@@ -10,22 +10,24 @@ def ith_odd(i):
 def num_odd_nums_le_n(n):
     return n - n // 2
 
-n = 120
+class Prime_Checker:
+    def __init__(self, n):
+        self._is_prime_arr = [True] * (num_odd_nums_le_n(n) - 1)
+        # p: prime
+        # c: composite
+        p = 3
+        while p * p <= n:
+            if self._is_prime_arr[odd_num_index(p) - 1]:
+                c = p * p
+                while c <= n:
+                    if c % 2 == 1:
+                        self._is_prime_arr[odd_num_index(c) - 1] = False
+                    c += p
+            p += 2
 
-is_prime_arr = [True] * (num_odd_nums_le_n(n) - 1)
-
-# p: prime
-# c: composite
-p = 3
-while p * p <= n:
-    if is_prime_arr[odd_num_index(p) - 1]:
-        c = p * p
-        while c <= n:
-            if c % 2 == 1:
-                is_prime_arr[odd_num_index(c) - 1] = False
-            c += p
-    p += 2
-
-for i, is_prime in enumerate(is_prime_arr):
-    if is_prime:
-        print(ith_odd(i + 1))
+    def is_prime(self, n):
+        if n == 2:
+            return True
+        if n % 2 == 0:
+            return False
+        return self._is_prime_arr[odd_num_index(n) - 1]
