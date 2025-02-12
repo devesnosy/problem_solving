@@ -2,10 +2,28 @@
 #include <cstdint>
 #include <cstdlib>
 #include <iostream>
+#include <vector>
 
 int main() {
   uint64_t n = 0;
   std::cin >> n;
+
+  std::vector<bool> is_prime_arr;
+  uint64_t max = 1'000'000;
+  is_prime_arr.resize(max - 2 + 1, true);
+
+  uint64_t p = 2;
+  uint64_t c;
+  while (p * p <= max) {
+      if (is_prime_arr[p - 2]) {
+          c = p * p;
+          while (c <= max) {
+              is_prime_arr[c - 2] = false;
+              c += p;
+          }
+      }
+      p += 1;
+  }
 
   while (n--) {
     uint64_t x = 0;
@@ -21,20 +39,25 @@ int main() {
     if (root * root < x) {
         std::cout << "NO" << std::endl;
     } else {
-        uint64_t pd = 2;
-        bool is_prime = true;
-        while (pd * pd <= root) {
-            if (root % pd == 0) {
-                is_prime = false;
-                break;
-            }
-            pd += 1;
-        }
-        if (is_prime) {
+        if (is_prime_arr[root - 2]) {
             std::cout << "YES" << std::endl;
         } else {
             std::cout << "NO" << std::endl;
         }
+        // uint64_t pd = 2;
+        // bool is_prime = true;
+        // while (pd * pd <= root) {
+        //     if (root % pd == 0) {
+        //         is_prime = false;
+        //         break;
+        //     }
+        //     pd += 1;
+        // }
+        // if (is_prime) {
+        //     std::cout << "YES" << std::endl;
+        // } else {
+        //     std::cout << "NO" << std::endl;
+        // }
     }
 
     // uint64_t num_unique_divisors = 0;
